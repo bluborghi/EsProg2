@@ -22,13 +22,6 @@ struct elem
 
 typedef elem *lista;
 
-elem *new_elem(char *value)
-{
-    elem *e = new elem;
-    strncpy(e->inf, value, 51);
-    e->pun = e->prev = NULL;
-    return e;
-}
 
 // primitive
 
@@ -76,7 +69,7 @@ lista ord_insert_elem(lista l, elem *e)
     else
     {
         lista l1 = l;
-        while (tail(l1) != NULL && strcmp(head(tail(l1)), e->inf) < 0)
+        while (tail(l1) != NULL && compare(head(tail(l1)), head(e)) < 0)
             l1 = tail(l1);
         e->pun = l1->pun;
         if (l1->pun != NULL)
@@ -86,7 +79,7 @@ lista ord_insert_elem(lista l, elem *e)
         return l;
     }
 }
-
+ 
 elem *ord_search(lista l, char *v)
 {
     while (l != NULL && strcmp(head(l), v) <= 0)
@@ -96,6 +89,20 @@ elem *ord_search(lista l, char *v)
             l = tail(l);
     return NULL;
 }
+
+elem *new_elem(char *value)
+{
+    elem *e = new elem;
+    strncpy(e->inf, value, 51);
+    e->pun = e->prev = NULL;
+    return e;
+}
+
+int compare(char* a, char* b){
+    return strcmp(a,b);
+}
+
+
 
 // funzioni
 
