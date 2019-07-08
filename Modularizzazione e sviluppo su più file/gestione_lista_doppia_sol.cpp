@@ -22,7 +22,6 @@ struct elem
 
 typedef elem *lista;
 
-
 // primitive
 
 char *head(lista p) { return p->inf; }
