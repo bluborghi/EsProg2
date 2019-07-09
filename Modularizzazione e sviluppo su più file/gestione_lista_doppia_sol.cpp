@@ -78,7 +78,7 @@ lista ord_insert_elem(lista l, elem *e)
         return l;
     }
 }
- 
+
 elem *ord_search(lista l, char *v)
 {
     while (l != NULL && strcmp(head(l), v) <= 0)
@@ -97,11 +97,10 @@ elem *new_elem(char *value)
     return e;
 }
 
-int compare(char* a, char* b){
-    return strcmp(a,b);
+int compare(char *a, char *b)
+{
+    return strcmp(a, b);
 }
-
-
 
 // funzioni
 
