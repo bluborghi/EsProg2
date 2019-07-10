@@ -5,6 +5,15 @@
 
 using namespace std;
 
+
+/* double calcola_integrale_trapezi(double fx, double a, double b, int num_trapezi){
+    double frazione = (b-a)/(num_trapezi-1);
+    double sommatoria;
+
+}
+ */
+
+
 double legendre_ricorsiva(int ordine, double x)
 {
     //casi base
@@ -84,12 +93,14 @@ int main()
     //calcola valori della matrice dei risultati
     calcola_tabella_legendre(risultati, punti, numero_punti, ordini, numero_polinomi);
 
+
+    //chiedo in input il nome del file lo inizializzo
     string nomeFileOutput;
     cout << "nome del file di output?" << endl;
     cin >> nomeFileOutput;
     ofstream of(nomeFileOutput);
 
-    //visualizza tabella
+    //stampa tabella su file
     of << setw(20) << "x";
     for (int j = 0; j <= numero_polinomi - 1; j++)
     {
