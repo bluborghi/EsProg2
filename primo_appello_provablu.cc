@@ -6,14 +6,6 @@
 using namespace std;
 
 
-/* double calcola_integrale_trapezi(double fx, double a, double b, int num_trapezi){
-    double frazione = (b-a)/(num_trapezi-1);
-    double sommatoria;
-
-}
- */
-
-
 double legendre_ricorsiva(int ordine, double x)
 {
     //casi base
@@ -36,6 +28,24 @@ double legendre(int ordine, double x)
         p[n] = ((2 * n - 1) * x * p[n - 1] - (n - 1) * p[n - 2]) / n;
     }
     return p[ordine];
+}
+
+double calcola_integrale_trapezi(int ordine_pol, double a, double b, double *punti, int num_punti)
+{
+    double frazione = (b - a) / (num_punti - 1);
+    double sommatoria = 0;
+    for (int i = 0; i <= num_punti - 2; i++)
+    {
+        sommatoria += (legendre(ordine_pol, punti[i]) * legendre(ordine_pol, punti[i]) +
+                       legendre(ordine_pol, punti[i + 1]) * legendre(ordine_pol, punti[i + 1])) /
+                      2;
+    }
+    return frazione*sommatoria;
+}
+
+double calcola_integrale_appr(int ordine_pol)
+{
+    return 2.0/(2*ordine_pol+1);
 }
 
 void generaPunti(double *arr, int numPunti)
@@ -93,7 +103,6 @@ int main()
     //calcola valori della matrice dei risultati
     calcola_tabella_legendre(risultati, punti, numero_punti, ordini, numero_polinomi);
 
-
     //chiedo in input il nome del file lo inizializzo
     string nomeFileOutput;
     cout << "nome del file di output?" << endl;
@@ -118,6 +127,26 @@ int main()
         }
         of << endl;
     }
+    of.close();
+
+    //calcolo integrali
+    double *integrali = new double[numero_polinomi];
+    double *valori_attesi = new double [numero_polinomi];
+    for (int i = 0; i<=numero_polinomi-1; i++){
+        valori_attesi[i] = calcola_integrale_trapezi(ordini[i],-1,1,punti,numero_punti);
+        integrali[i] = calcola_integrale_appr(ordini[i]);
+    }
+
+
+
+    //stampo tabella integrali
+    of.open("integrali.txt");
+    of<<setw(15)<<"Polinomio"<<setw(15)<<"Integrale"<<setw(15)<<"Valore Atteso"<<endl;
+    for (int i = 0; i<=numero_polinomi-1; i++){
+        string pol = "p"+ to_string(ordini[i]) + "(x)";
+        of<<setw(15)<<pol<<setw(15)<<integrali[i]<<setw(15)<<valori_attesi[i]<<endl;
+    }
+
 
     return 0;
 }
