@@ -89,6 +89,7 @@ int main()
     cout << "in quanti punti valutare i polinomi?" << endl;
     cin >> numero_punti;
 
+    //genero i punti in modo equidistante
     double *punti = new double[numero_punti];
     generaPunti(punti, numero_punti);
 
