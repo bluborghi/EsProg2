@@ -22,6 +22,7 @@ void bst_insert(bst&,bnode*) ; //aggiunge un nodo al bst
 void print_key(tipo_key);
 bnode* bst_search(bst,tipo_key);
 void bst_delete(bst&, bnode*);
+void print_increasing_order(bst b);
 
 
 
